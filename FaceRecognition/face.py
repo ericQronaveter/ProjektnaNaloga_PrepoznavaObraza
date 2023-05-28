@@ -50,7 +50,7 @@ def is_match(known_embedding, candidate_embedding, thresh=0.5):
 		return False
 
 # define filenames
-directory = 'faces'
+directory = '../faces'
 # automatically detect face files in the directory
 filenames = []
 for filename in os.listdir(directory):
