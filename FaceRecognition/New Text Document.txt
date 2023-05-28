@@ -1,3 +1,5 @@
 pip install git+https://github.com/rcmalli/keras-vggface.git
 pip install mtcnn
 pip install keras-applications
+
+python3 faceCreateModel.py ../face_my ../faces_false leon_model

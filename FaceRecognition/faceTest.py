@@ -9,6 +9,17 @@ import os
 import numpy as np
 from matplotlib import pyplot
 import joblib
+import sys
+
+# check the number of arguments passed
+if len(sys.argv) != 4:
+    print("Usage: python3 faceTest.py <right_folder> <false_folder> <name_of_model>")
+    sys.exit(1)
+
+# directories passed as command line arguments
+directory_right = sys.argv[1]
+directory_false = sys.argv[2]
+model_filename = sys.argv[3]
 
 
 # extract a single face from a given photograph
@@ -44,10 +55,6 @@ def get_embeddings(filenames, model):
 
 model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
 
-# define directories
-directory_right = '../faces_right'
-directory_false = '../faces_false'
-
 # automatically detect face files in the directories
 filenames_right = [os.path.join(directory_right, f) for f in os.listdir(directory_right) if f.endswith(('.jpg', '.png'))]
 filenames_false = [os.path.join(directory_false, f) for f in os.listdir(directory_false) if f.endswith(('.jpg', '.png'))]
@@ -79,7 +86,7 @@ print('y_test:', y_test)
 clf = LogisticRegression(random_state=42).fit(X_train, y_train)
 
 # save the model to disk
-filename = 'finalized_model.sav'
+filename = f'{model_filename}.sav'
 joblib.dump(clf, filename)
 
 # check accuracy on the test set
