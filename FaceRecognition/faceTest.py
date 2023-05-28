@@ -8,6 +8,8 @@ from mtcnn.mtcnn import MTCNN
 import os
 import numpy as np
 from matplotlib import pyplot
+import joblib
+
 
 # extract a single face from a given photograph
 def extract_face(filename, required_size=(224, 224)):
@@ -76,6 +78,15 @@ print('y_test:', y_test)
 # train a logistic regression classifier
 clf = LogisticRegression(random_state=42).fit(X_train, y_train)
 
+# save the model to disk
+filename = 'finalized_model.sav'
+joblib.dump(clf, filename)
+
 # check accuracy on the test set
 accuracy = clf.score(X_test, y_test)
 print('Test accuracy:', accuracy)
+
+# load the model from disk
+loaded_model = joblib.load(filename)
+result = loaded_model.score(X_test, y_test)
+print(result)
