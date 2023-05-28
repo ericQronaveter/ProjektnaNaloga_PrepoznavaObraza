@@ -3,3 +3,4 @@ pip install mtcnn
 pip install keras-applications
 
 python3 faceCreateModel.py ../face_my ../faces_false leon_model
+python3 faceTestImage.py leon_model.sav ../testData/test3.jpg
